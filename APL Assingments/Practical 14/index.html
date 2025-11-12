@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Express.js GET & POST Demo</title>
+</head>
+<body>
+  <h1>Express.js GET, POST, PUT & DELETE Demo</h1>
+
+  <form action="/submit-form" method="POST">
+    <label for="username">Name:</label>
+    <input type="text" id="username" name="username" required /><br><br>
+
+    <label for="useremail">Email:</label>
+    <input type="email" id="useremail" name="useremail" required /><br><br>
+
+    <button type="submit">Submit (POST)</button>
+  </form>
+
+  <hr>
+
+  <h2>Test PUT & DELETE with Fetch API (JS)</h2>
+  <button onclick="updateUser()">Update User (PUT)</button>
+  <button onclick="deleteUser()">Delete User (DELETE)</button>
+
+  <pre id="result"></pre>
+
+  <script>
+    async function updateUser() {
+      const res = await fetch('/update-user', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: 'UpdatedUser',
+          useremail: 'updated@example.com'
+        })
+      });
+      const data = await res.json();
+      document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+    }
+
+    async function deleteUser() {
+      const res = await fetch('/delete-user', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: 'UpdatedUser' })
+      });
+      const data = await res.json();
+      document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+    }
+  </script>
+</body>
+</html>
